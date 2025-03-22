@@ -1,33 +1,35 @@
 
+import java.awt.*;
+
 public class Player {
-    private String name;
-    private int level;
-    private int health;
-    private int mana;
+    GamePanel gp;
+    KeyHandler keyH;
 
+    public int x, y;        // Position du joueur
+    public int speed;       // Vitesse du joueur
 
-    public Player(String name, int level, int health, int mana) {
-        this.name = name;
-        this.level = level;
-        this.health = health;
-        this.mana = mana;   
+    public Player(GamePanel gp, KeyHandler keyH) {
+        this.gp = gp;
+        this.keyH = keyH;
+
+        setDefaultValues();
     }
 
-    public String getName() {return name;}
+    public void setDefaultValues() {
+        x = 100;
+        y = 100;
+        speed = 4;
+    }
 
-    public int getLevel() {return level;}
+    public void update() {
+        if (keyH.haut) y -= speed;
+        if (keyH.bas) y += speed;
+        if (keyH.gauche) x -= speed;
+        if (keyH.droite) x += speed;
+    }
 
-    public int getHealth() {return health;}
-
-    public int getMana() {return mana;}
-
-    public void setName(String name) {this.name = name;}
-
-    public void setLevel(int level) {this.level = level;}
-
-    public void setHealth(int health) {this.health = health;}
-
-    public void setMana(int mana) {this.mana = mana;}
-
-
+    public void draw(Graphics2D g2) {
+        g2.setColor(Color.white);
+        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+    }
 }
