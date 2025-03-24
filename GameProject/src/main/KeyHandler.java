@@ -11,23 +11,26 @@ public class KeyHandler implements KeyListener {
         // Pas utilisé ici
     }
 
+    // 6. Gestion des entrées clavier
+    // 6.1. Appuyer sur une touche
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_Z) haut = true;
+        if (code == KeyEvent.VK_W) haut = true;
         if (code == KeyEvent.VK_S) bas = true;
-        if (code == KeyEvent.VK_Q) gauche = true;
+        if (code == KeyEvent.VK_A) gauche = true;
         if (code == KeyEvent.VK_D) droite = true;
     }
 
+    // 6.2. Relâcher une touche
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_Z) haut = false;
+        if (code == KeyEvent.VK_W) haut = false;
         if (code == KeyEvent.VK_S) bas = false;
-        if (code == KeyEvent.VK_Q) gauche = false;
+        if (code == KeyEvent.VK_A) gauche = false;
         if (code == KeyEvent.VK_D) droite = false;
     }
 }

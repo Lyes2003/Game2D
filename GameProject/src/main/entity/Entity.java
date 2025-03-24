@@ -1,6 +1,4 @@
 
-
-
 public class Entity {
     private String Name;
     private boolean Is_it_pnj, Is_it_player,Is_it_monster,Is_it_object;
