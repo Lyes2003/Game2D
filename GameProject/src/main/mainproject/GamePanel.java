@@ -1,4 +1,6 @@
+package mainproject;
 
+import mainproject.entity.Player;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,3 +1,7 @@
+package mainproject.entity;
+
+import mainproject.GamePanel;
+import mainproject.KeyHandler;
 
 import java.awt.*;
 

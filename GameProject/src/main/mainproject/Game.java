@@ -1,3 +1,4 @@
+package mainproject;
 
 import javax.swing.*;
 
