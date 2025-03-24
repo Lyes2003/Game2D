@@ -1,18 +1,15 @@
 package mainproject;
 
 import mainproject.entity.Player;
+import mainproject.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 
-
-
 public class GamePanel extends JPanel implements Runnable {
-
     // 1. TAILLE DE L'ÉCRAN
     final int originalTileSize = 16; // Taille de base du tile (16x16)
     final int scale = 3;             // Zoom
-
     public final int tileSize = originalTileSize * scale; // 48x48 pixels
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
@@ -21,28 +18,33 @@ public class GamePanel extends JPanel implements Runnable {
 
     int fps = 60; // Frames par seconde
 
-    // 2. BOUCLE DE JEU
+    // 2. GESTION DES TUILES
+    TileManager tileManager;
+
+    // 3. BOUCLE DE JEU
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(); // Gestionnaire des entrées clavier
     Player player = new Player(this, keyH); // Joueur du jeu
 
-
-    // 3. Constructeur
+    // 4. Constructeur
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true); // améliore les performances de rendu
         this.setFocusable(true); // pour recevoir les entrées clavier
         this.addKeyListener(keyH); // ajouter le gestionnaire d'entrées clavier
+
+        // Initialiser le TileManager
+        tileManager = new TileManager(this);
     }
 
-    // 4. Démarrer le thread de jeu
+    // 5. Démarrer le thread de jeu
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
-    // 5. Boucle principale du jeu
+    // 6. Boucle principale du jeu
     @Override
     public void run() {
         double drawInterval = 1000000000.0 / fps; // 60 FPS
@@ -72,19 +74,23 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 6. Mettre à jour le jeu
+    // 7. Mettre à jour le jeu
     public void update() {
         player.update();
     }
 
-    // 7. Dessiner à l'écran
+    // 8. Dessiner à l'écran
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-    
+
+        // Dessiner la map (avant le joueur pour qu'il apparaisse au-dessus)
+        tileManager.draw(g2);
+
+        // Dessiner le joueur
         player.draw(g2);
-    
+
         g2.dispose();
     }
 }
